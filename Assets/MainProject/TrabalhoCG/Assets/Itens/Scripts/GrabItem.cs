@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -8,14 +10,16 @@ public class GrabItem : XRGrabInteractable
 
     [Header("Efeito Sonoro ao pegar o item")]
     [SerializeField] private AudioClip soundEffect;
-    private AudioSource audioSource;
+
+    public TextMeshProUGUI textGrab;
 
     protected override void Awake()
     {
         base.Awake();
         outline = GetComponent<Outline>();
         outline.enabled = false;
-        audioSource = GetComponent<AudioSource>();
+
+        textGrab.enabled = false;
     }
 
     protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -25,27 +29,43 @@ public class GrabItem : XRGrabInteractable
         outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineColor = Color.yellow;
         outline.OutlineWidth = 8.0f;
+        textGrab.enabled = true;
     }
 
     protected override void OnHoverExited(HoverExitEventArgs args)
     {
         base.OnHoverExited(args);
-        //outline.enabled = false;
+
         outline.OutlineMode = Outline.Mode.OutlineHidden;
         outline.OutlineWidth = 0.0f;
 
+        if(textGrab != null)
+        {
+          textGrab.enabled = false;
+
+        }
+    }
+
+    void PickupItem()
+    {
+        GameManager.Instance.ColectedMonster();
+        AudioSource.PlayClipAtPoint(soundEffect, transform.position);
+      
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-        SomItem();
+        PickupItem();
+        textGrab.enabled = false;
+
     }
 
-
-    void SomItem()
+    protected override void OnSelectExited(SelectExitEventArgs args)
     {
-        audioSource.PlayOneShot(soundEffect, 2.0f);
-    }
+        base.OnSelectExited(args);
+        Destroy(gameObject);
+        textGrab.enabled = false;
 
+    }
 }

@@ -1,0 +1,11 @@
+Model Information:
+* title:	SCP Key Card (Multi texture)
+* source:	https://sketchfab.com/3d-models/scp-key-card-multi-texture-3fec71e9fe4b4d4cb408e6ad46210085
+* author:	Maxime66410 (https://sketchfab.com/Maxime66410)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "SCP Key Card (Multi texture)" (https://sketchfab.com/3d-models/scp-key-card-multi-texture-3fec71e9fe4b4d4cb408e6ad46210085) by Maxime66410 (https://sketchfab.com/Maxime66410) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

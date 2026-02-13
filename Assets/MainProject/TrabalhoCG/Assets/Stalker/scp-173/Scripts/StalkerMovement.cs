@@ -11,7 +11,7 @@ public class StalkerMovement : MonoBehaviour
 
     [Header("NavMesh de IA")]
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Transform player;
+    [SerializeField] private GameObject player;
 
     [Header("Efeito sonoro do Stalker")]
     //[SerializeField] private AudioClip somBichao;
@@ -22,13 +22,24 @@ public class StalkerMovement : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponentInParent<Animator>();
         timeHolder = timerAnimation;
-
-        audioSource = GetComponent<AudioSource>();
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("perdeu");
+            NavMeshAgent agent = GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                agent.isStopped = true;
+            }
+            GameManager.Instance.FinalizarJogo("acabou");
+        }
+    }
 
 
     // Update is called once per frame
@@ -43,13 +54,11 @@ public class StalkerMovement : MonoBehaviour
             //animator.transform.forward = transform.forward;
         }
 
+
         if(player != null)
         {
-            agent.SetDestination(player.position);
+            agent.SetDestination(player.transform.position);
         }
-        
-       
 
-      
     }
 }
